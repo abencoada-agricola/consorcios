@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/png" href="assets/simbolo-abencoada.png"><title>Painel de consórcios | Abençoada</title>
+<link rel="stylesheet" href="styles.css"></head><body>
+<section id="login-screen" class="login-screen">
+ <div class="login-card">
+  <img class="login-logo" src="assets/logo-abencoada.png" alt="Abençoada Agrícolas">
+  <h1>Meus consórcios</h1>
+  <p>Acesse seus grupos, cotas e custos.</p>
+  <form id="login-form">
+   <label for="username">Usuário</label><input id="username" name="username" autocomplete="username" required autofocus>
+   <label for="password">Senha</label><div class="password-field"><input id="password" name="password" type="password" autocomplete="current-password" required><button type="button" id="toggle-password" aria-pressed="false">Mostrar</button></div>
+   <p id="login-error" role="alert" class="login-error"></p>
+   <button class="primary" id="login-button" type="submit">Entrar</button>
+  </form>
+ </div>
+</section><div id="dashboard" hidden>
+<header><div class="header-brand"><img src="assets/simbolo-abencoada.png" alt=""><span>Abençoada · Gestão de consórcios</span></div><div class="top"><h1 id="page-title" tabindex="-1">Meus consórcios</h1><button id="logout" class="no-print">Sair</button></div><p>Cássia e Cássia Serviços Agrícolas Ltda. · Randon Consórcios · Extrato de 12/11/2026</p></header>
+<main>
+<div class="top"><h2>Visão geral</h2><button class="no-print" id="print">Imprimir / salvar PDF</button></div>
+<div class="filters no-print">
+<label>Buscar cota, grupo, DOC ou bem<input id="query" type="search" placeholder="Ex. 0067, 001522 ou Trator"></label>
+<label>Grupo<select id="group"><option value="">Todos os grupos</option></select></label>
+<label>Contemplação<select id="state"><option value="">Todas as cotas</option><option value="won">Contempladas</option><option value="waiting">Aguardando contemplação</option><option value="settled">Quitadas</option></select></label>
+<label>Ordenar cotas<select id="order"><option value="natural">Grupo e cota</option><option value="balance">Maior saldo a pagar</option><option value="open">Mais parcelas a pagar</option><option value="few">Menos parcelas a pagar</option><option value="recent">Contemplação mais recente</option></select></label>
+<button id="clear">Limpar filtros</button>
+</div>
+<div class="overview">
+ <section class="box ringbox" id="overall" aria-label="Percentual do saldo a pagar"></section>
+ <div id="cards" class="cards"></div>
+</div>
+<section class="box"><div class="top section-head"><h2>Consórcios por grupo</h2><div class="group-controls no-print" role="group" aria-label="Unidade dos gráficos"><button id="money" aria-pressed="true">Em reais</button><button id="units" aria-pressed="false">Em parcelas</button></div></div>
+ <div class="legend mini"><span><i class="dot"></i><span id="paid-label">Pago no extrato</span></span><span><i class="dot future"></i>Falta pagar</span></div>
+ <div id="chart" class="group-grid" style="margin-top:12px"></div>
+</section>
+<details class="box costs-section" open><summary>Custos e taxa de administração</summary><div id="cost-summary"></div></details>
+<section class="box portfolio" id="portfolio"><div class="top"><h2>Cotas por consórcio</h2><p class="sub" id="count" role="status"></p></div><div id="rows"></div></section>
+<details class="lower"><summary>Totais de contemplação e vencimentos</summary><div id="results"></div></details>
+<details class="lower"><summary>Como os valores foram calculados</summary><div class="note">
+ <p>Dados cadastrais e financeiros da planilha atualizada. Taxas e composição de custos do extrato Randon de 12/11/2026.</p><p>“Pago no extrato” vem do quadro Valores / Percentuais Pagos e inclui lances embutidos.</p>
+ <p>“Falta pagar” em reais usa o saldo informado pela administradora. Em parcelas, conta as linhas de valor positivo no plano, inclusive prorrogadas. A barra compara esses números com os respectivos valores já pagos.</p>
+ <p>O vencimento vem dos avisos da seção Pendência. As demais parcelas podem estar no plano com o vencimento em branco.</p>
+ <p id="comparison" class="callout"></p>
+</div></details>
+</main>
+<dialog id="detail" aria-labelledby="detail-title"><div class="dialog-head top"><div><small id="detail-source"></small><h2 id="detail-title"></h2></div><div class="top"><button id="print-detail">Imprimir cota</button><button id="close" class="primary" autofocus>Fechar</button></div></div><div id="detail-body" class="dialog-main"></div></dialog>
+
+</div><script src="vault.js"></script><script src="app.js"></script></body></html>
