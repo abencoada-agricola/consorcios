@@ -40,7 +40,11 @@ document.getElementById('toggle-password').addEventListener('click',()=>{
  const field=document.getElementById('password'), button=document.getElementById('toggle-password');
  const showing=field.type==='password';
  field.type=showing?'text':'password';
- button.textContent=showing?'Ocultar':'Mostrar';
+ const label=showing?'Ocultar senha':'Mostrar senha';
+ button.setAttribute('aria-label',label);
+ button.title=label;
+ button.querySelector('.eye-open').toggleAttribute('hidden',showing);
+ button.querySelector('.eye-closed').toggleAttribute('hidden',!showing);
  button.setAttribute('aria-pressed',String(showing));
 });
 document.getElementById('logout').addEventListener('click',()=>location.reload());

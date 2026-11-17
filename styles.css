@@ -19,3 +19,5 @@ header{padding-top:17px;padding-bottom:18px}h1{font-size:clamp(2rem,5vw,3rem);ma
 .login-logo{display:block;width:100%;height:auto;max-height:130px;object-fit:contain;margin:0 0 24px}
 .header-brand{display:flex;align-items:center;gap:10px;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:#dfecce}
 .header-brand img{width:37px;height:41px;object-fit:contain}
+
+#toggle-password{display:flex;align-items:center;justify-content:center;min-width:46px;padding:9px}#toggle-password svg{display:block}
