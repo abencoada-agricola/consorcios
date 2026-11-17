@@ -127,14 +127,12 @@ function redraw(){
  const planCount=sum(rows,c=>c.open.length);
  const pending=rows.flatMap(c=>c.pending);
  el('cost-summary').innerHTML=costCards(rows)+costTable(rows);
- const paid=sum(rows,c=>c.paid), balance=sum(rows,c=>c.balance), planTotal=sum(rows,c=>c.openSum);
+ const paid=sum(rows,c=>c.paid), balance=sum(rows,c=>c.balance);
  el('overall').innerHTML=ring(balance,paid)+'<div><strong>'+ratio(balance,paid)+'</strong><span>Falta pagar</span></div>';
  el('cards').innerHTML=
   card('Saldo a pagar',brl(balance),n(planCount)+' parcelas restantes')+
   card('Pago no extrato',brl(paid),n(sum(rows,c=>+c.paidCount))+' parcelas pagas no resumo')+
   card('Contempladas',n(selected.length)+' de '+n(rows.length),n(rows.length-selected.length)+' aguardando · '+n(rows.filter(settled).length)+(rows.filter(settled).length===1?' quitada':' quitadas'));
- el('comparison').hidden=balance===planTotal;
- el('comparison').textContent='Soma das parcelas do plano '+brl(planTotal)+' · saldo da administradora '+brl(balance)+' · diferença '+brl(balance-planTotal)+'.';
  el('paid-label').textContent=metric==='money'?'Pago no extrato':'Parcelas pagas';
  el('chart').innerHTML=groups.map(g=>[g,matches.filter(c=>c.group===g)]).filter(([,rs])=>rs.length).map(([g,rs])=>formatGroup(g,rs)).join('')||'<p class="sub">Nenhum consórcio encontrado.</p>';
  el('results').innerHTML=
