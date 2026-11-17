@@ -1,5 +1,7 @@
 # Consórcios Abençoada
 
+Acesse https://abencoada-agricola.github.io/consorcios/
+
 Painel dos consórcios Randon, com grupos, cotas, contemplações, parcelas e composição dos custos.
 
 ## Arquivos

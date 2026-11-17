@@ -191,6 +191,7 @@ function detail(c){
  el('detail-source').textContent='Extrato de 12/11/2026 · páginas '+c.pages[0]+' a '+c.pages.at(-1)+' · cobrança '+c.status.toLowerCase();
  el('detail-title').textContent='Grupo '+c.group+' · cota '+c.quota;
  const pc = Number(c.ideal.replace(',','.'));
+ const unapplied=c.ledger.some(r=>r[4].includes('*'))?'<p class="callout">O extrato registra movimento não apropriado nesta cota. Confira a conta corrente nos quadros originais.</p>':'';
  const notice = Object.fromEntries(c.pending.map(p=>[p[0],p[1]]));
  const openRows = c.open.map(r=>[r[0],brl(r[1]),notice[r[0]]||'—',c.hist[Number(r[0])-1]==='.'?'Prorrogada · '+(r[2]||'ver plano'):r[2]||'Em aberto']);
  const diff=c.balance-c.openSum;
@@ -206,7 +207,7 @@ function detail(c){
  '<div class="cards">'+card('Crédito',brl(c.credit),'Valor de referência')+card('Pago no extrato',brl(c.paid),Number(c.paidCount)+' parcelas no resumo de pagas')+card('Saldo a pagar',brl(c.balance),'Quadro financeiro')+card('Contribuição mensal',brl(c.monthly),c.next?'Aviso de '+brl(c.next[2])+' em '+c.next[1]:'Sem aviso de vencimento')+'</div>'+
  '<p class="mini">Fundo comum pago · <b>'+safe(c.ideal)+'%</b></p><progress class="progress" max="100" value="'+Math.min(100,pc)+'" aria-label="Percentual do fundo comum pago"></progress>'+hist+
  section('Custos e taxa de administração',costCards([c])+costTable([c]),true)+
- section('Dados do Financeiro','<p><b>Documento '+safe(c.document||'ausente')+'</b></p><p>'+safe(c.financeDescription)+'</p><p>Plano de '+Number(c.term)+' meses · '+c.paidCount+' pagas · '+c.open.length+' a pagar · '+c.adjustmentCount+' em rateio e ajustes</p><p>Lance registrado '+brl(c.lanceValue)+' · equivalência '+(c.lanceEquivalent??'não informada')+' parcelas</p>',true)+
+ section('Dados do Financeiro',unapplied+'<p><b>Documento '+safe(c.document||'ausente')+'</b></p><p>'+safe(c.financeDescription)+'</p><p>Plano de '+Number(c.term)+' meses · '+c.paidCount+' pagas · '+c.open.length+' a pagar · '+c.adjustmentCount+' em rateio e ajustes</p><p>Lance registrado '+brl(c.lanceValue)+' · equivalência '+(c.lanceEquivalent??'não informada')+' parcelas</p>',true)+
  section('Parcelas a pagar · '+n(c.open.length),plan,true)+
  section('Contemplação',result,true)+
  section('Histórico de lançamentos · '+n(c.ledger.length),'<p>O valor lançado pode incluir lances embutidos, outros créditos e encargos. Total pago na conta corrente <b>'+brl(c.ledgerTotal)+'</b>.</p>'+table(['Parcela','Histórico','Vencimento','Pagamento','Valor devido','Valor pago','Multa','Juros','Seguro','% pago','% diferença'],c.ledger.map(r=>[r[0]||'—',r[1],r[2],r[3],r[6],r[7],r[8],r[9],r[10],r[11],r[12]])))+
